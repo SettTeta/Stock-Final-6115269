@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function Home({ supplier }) {
 
   const { register, handleSubmit } = useForm();
-  const [editedVideo, setEditedVideo] = useState(null);
+  const [editedSupplier, setEditedSupplier] = useState(null);
 
 
   function deleteSupplier(id) {
@@ -24,7 +24,7 @@ export default function Home({ supplier }) {
   }
 
   const updateSupplier = async () => {
-    const response = await fetch(`/api/stock-final/supplier/${editedVideo._id}`, {
+    const response = await fetch(`/api/stock-final/supplier/${editedSupplier._id}`, {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -36,16 +36,20 @@ export default function Home({ supplier }) {
         // redirect: "follow", // manual, *follow, error
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         // serialisation
-        body: JSON.stringify(editedVideo), // body data type must match "Content-Type" header
+        body: JSON.stringify(editedSupplier), // body data type must match "Content-Type" header
     });
     const result = await response.json();   // deserialise
     if (result.error) {
         alert("Error: " + result.error)
     }
-    setData(JSON.stringify(editedVideo))
-    setEditedVideo(null)
+    setData(JSON.stringify(editedSupplier))
+    setEditedSupplier(null)
     window.location.reload(true);
 }
+
+  function setCurrentSupplier(id){
+    setEditedSupplier(id)
+  }
 
   return (
     <>
@@ -83,7 +87,7 @@ export default function Home({ supplier }) {
                         {sup.phone}
                       </td>
                       <td>
-                        <button data-bs-toggle="modal" data-bs-target="#updateModal" onClick={() => setEditedVideo(sup._id)}>Update</button>
+                        <button data-bs-toggle="modal" data-bs-target="#updateModal" onClick={() => setCurrentSupplier(sup._id)}>Update</button>
                       </td>
                       <td>
                         <button onClick={() => deleteSupplier(sup._id)}>Delete</button>
