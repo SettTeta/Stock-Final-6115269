@@ -195,7 +195,7 @@ export default function Home({ supplier }) {
                         <input
                           className='form-control'
                           id='title'
-                          defaultValue={editedSupplier?.name}
+                          defaultValue={editedSupplier?.name ?? ''}
                           {...register('name', { required: false })}
                         />
                       </div>
@@ -206,7 +206,7 @@ export default function Home({ supplier }) {
                         <input
                           className='form-control'
                           id='address'
-                          defaultValue={editedSupplier?.address}
+                          defaultValue={editedSupplier?.address ?? ''}
                           {...register('address', { required: false })}
                         ></input>
                       </div>
@@ -218,7 +218,7 @@ export default function Home({ supplier }) {
                           className='form-control'
                           type='phone'
                           id='phone'
-                          defaultValue={editedSupplier?.phone}
+                          defaultValue={editedSupplier?.phone ?? ''}
                           {...register('phone', { required: false })}
                         />
                       </div>
