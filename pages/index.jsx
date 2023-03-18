@@ -23,29 +23,27 @@ export default function Home({ supplier }) {
     }
   }
 
-  const updateSupplier = async () => {
-    const response = await fetch(`/api/stock-final/supplier/${editedSupplier}`, {
-      method: "PUT", // *GET, POST, PUT, DELETE, etc.
-      mode: "cors", // no-cors, *cors, same-origin
-      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-      // credentials: "same-origin", // include, *same-origin, omit
+  const updateSupplier = async (data) => {
+    const response = await fetch(`/api/stock-final/supplier/${editedSupplier._id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      cache: 'no-cache',
       headers: {
-        "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
-      // redirect: "follow", // manual, *follow, error
-      referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-      // serialisation
-      body: JSON.stringify(editedSupplier), // body data type must match "Content-Type" header
+      body: JSON.stringify(data),
     });
-    const result = await response.json();   // deserialise
+  
+    const result = await response.json();
     if (result.error) {
-      alert("Error: " + result.error)
+      alert('Error: ' + result.error);
+    } else {
+      setData(JSON.stringify(data));
+      setEditedSupplier(null);
+      window.location.reload(true);
     }
-    setData(JSON.stringify(editedSupplier))
-    setEditedSupplier(null)
-    window.location.reload(true);
-  }
+  };
+  
 
   function setCurrentSupplier(supplier) {
     setEditedSupplier(supplier);
