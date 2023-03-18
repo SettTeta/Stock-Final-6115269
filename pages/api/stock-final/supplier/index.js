@@ -1,11 +1,8 @@
-import dbConnect from "@/lib/dbConnect"
-import Supplier from "@/models/supplier"
+import dbConnect from "../../../../lib/dbConnect"
+import Supplier from "../../../../models/supplier"
 
 export default async function handler(req, res) {
     await dbConnect()
-    console.log("req.method: ", req.method);
-    console.log("connectionString:", connectionString);
-
 
     if (req.method === 'GET') {
         const docs = await Supplier.find()
