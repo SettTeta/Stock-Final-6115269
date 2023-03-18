@@ -3,11 +3,14 @@ import Header from '../components/header'
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
+import { DataGrid } from '@mui/x-data-grid';
 
 export default function Home({ supplier }) {
 
   const { register, handleSubmit } = useForm();
   const [editedSupplier, setEditedSupplier] = useState(null);
+  const [sortedSuppliers, setSortedSuppliers] = useState(supplier);
+  const [sorted, setSorted] = useState(false);
 
 
   function deleteSupplier(id) {
@@ -33,7 +36,7 @@ export default function Home({ supplier }) {
       },
       body: JSON.stringify(data),
     });
-  
+
     const result = await response.json();
     if (result.error) {
       alert('Error: ' + result.error);
@@ -42,12 +45,48 @@ export default function Home({ supplier }) {
       window.location.reload(false);
     }
   };
-  
-  
+
 
   function setCurrentSupplier(supplier) {
     setEditedSupplier(supplier);
   }
+
+
+  function sortSuppliersByName() {
+    if (!sorted) {
+      const sorted = [...sortedSuppliers].sort((a, b) => a.name.localeCompare(b.name));
+      setSortedSuppliers(sorted);
+      setSorted(true)
+    } else {
+      setSorted(false)
+      setSortedSuppliers(supplier)
+    }
+  }
+
+  const columns = [
+    { field: 'name', headerName: 'Name', width: 130 },
+    { field: 'address', headerName: 'Address', width: 130 },
+    { field: 'phone', headerName: 'Phone Number', width: 130 },
+    {
+      field: 'delete',
+      headerName: 'Delete',
+      sortable: false,
+      filterable: false,
+      width: 120,
+      renderCell: (params) => (
+        <button
+          onClick={(event) => {
+            event.stopPropagation();
+            deleteSupplier(params.row._id);
+          }}
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
+
+
 
   return (
     <>
@@ -59,11 +98,11 @@ export default function Home({ supplier }) {
         <Header />
 
         <div className="container">
-          <h1 style={{ marginTop: "70px" }}>Supplier</h1>
+          <h1 >Supplier</h1>
           <table>
             <thead>
               <tr>
-                <th style={{ width: '20rem' }}>Name</th>
+                <th style={{ width: '20rem' }} onClick={sortSuppliersByName}>Name</th>
                 <th style={{ width: '20rem' }}>Address</th>
                 <th style={{ width: '10rem' }}>Phone Number</th>
                 <th style={{ width: '5rem' }}>Update</th>
@@ -72,7 +111,7 @@ export default function Home({ supplier }) {
             </thead>
             <tbody>
               {
-                supplier.map(sup => {
+                sortedSuppliers.map(sup => {
                   return (
                     <tr key={sup._id}>
                       <td>
@@ -96,6 +135,17 @@ export default function Home({ supplier }) {
               }
             </tbody>
           </table>
+        </div>
+
+        <div className="container">
+          <DataGrid
+            rows={sortedSuppliers}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+            getRowId={(row) => row._id}
+            autoHeight
+          />
         </div>
 
         <div className="modal fade" id="updateModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@mui/material": "^5.11.13",
+    "@mui/x-data-grid": "^6.0.2",
     "bootstrap": "^5.2.3",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
