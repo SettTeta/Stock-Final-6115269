@@ -24,7 +24,7 @@ export default function Home({ supplier }) {
   }
 
   const updateSupplier = async () => {
-    const response = await fetch(`/api/stock-final/supplier/${editedSupplier._id}`, {
+    const response = await fetch(`/api/stock-final/supplier/${editedSupplier}`, {
         method: "PUT", // *GET, POST, PUT, DELETE, etc.
         mode: "cors", // no-cors, *cors, same-origin
         cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
@@ -48,6 +48,7 @@ export default function Home({ supplier }) {
 }
 
   function setCurrentSupplier(id){
+    console.log(id)
     setEditedSupplier(id)
   }
 
