@@ -12,6 +12,7 @@ export default function Home({ supplier }) {
   const [sortedSuppliers, setSortedSuppliers] = useState(supplier);
   const [sorted, setSorted] = useState(false);
 
+  const [selectedRow, setSelectedRow] = useState(null);
 
   function deleteSupplier(id) {
     const confirmed = window.confirm("Are you sure you want to delete this supplier?");
@@ -27,7 +28,7 @@ export default function Home({ supplier }) {
   }
 
   const updateSupplier = async (data) => {
-    const response = await fetch(`/api/stock-final/supplier/${editedSupplier._id}`, {
+    const response = await fetch(`/api/stock-final/supplier/${selectedRow._id}`, {
       method: 'PUT',
       mode: 'cors',
       cache: 'no-cache',
@@ -36,11 +37,12 @@ export default function Home({ supplier }) {
       },
       body: JSON.stringify(data),
     });
-
+  
     const result = await response.json();
     if (result.error) {
       alert('Error: ' + result.error);
     } else {
+      setSelectedRow(null);
       setEditedSupplier(null);
       window.location.reload(false);
     }
@@ -84,6 +86,26 @@ export default function Home({ supplier }) {
         </button>
       ),
     },
+    {
+      field: 'update',
+      headerName: 'Update',
+      sortable: false,
+      filterable: false,
+      width: 120,
+      renderCell: (params) => (
+        <button
+          onClick={(event) => {
+            event.stopPropagation();
+            setSelectedRow(params.row);
+            setCurrentSupplier(params.row);
+          }}
+          data-bs-toggle='modal' data-bs-target='#updateModal'
+        >
+          Update
+        </button>
+      ),
+    },
+
   ];
 
 
@@ -145,6 +167,11 @@ export default function Home({ supplier }) {
             rowsPerPageOptions={[5]}
             getRowId={(row) => row._id}
             autoHeight
+            onRowClick={(params) => {
+              setSelectedRow(params.row);
+              setCurrentSupplier(params.row);
+            }}
+            selectionModel={selectedRow ? [selectedRow._id] : []}
           />
         </div>
 
