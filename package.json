@@ -12,6 +12,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@material-ui/data-grid": "^4.0.0-alpha.37",
+    "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.13",
     "@mui/x-data-grid": "^6.0.2",
     "bootstrap": "^5.2.3",

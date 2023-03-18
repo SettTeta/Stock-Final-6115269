@@ -1,22 +1,22 @@
 import Head from 'next/head'
 import Header from '../components/header'
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { DataGrid } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import UpdateIcon from '@mui/icons-material/Update';
 
 export default function Home({ supplier }) {
 
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit } = useForm();
   const [editedSupplier, setEditedSupplier] = useState(null);
   const [sortedSuppliers, setSortedSuppliers] = useState(supplier);
   const [sorted, setSorted] = useState(false);
 
   const [selectedRow, setSelectedRow] = useState(null);
 
-  useEffect(() => {
-    reset(supplier)
-  }, [])
 
   function deleteSupplier(id) {
     const confirmed = window.confirm("Are you sure you want to delete this supplier?");
@@ -70,24 +70,25 @@ export default function Home({ supplier }) {
   }
 
   const columns = [
-    { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'address', headerName: 'Address', width: 130 },
-    { field: 'phone', headerName: 'Phone Number', width: 130 },
+    { field: 'name', headerName: 'Name:', width: 200 },
+    { field: 'address', headerName: 'Address:', width: 300 },
+    { field: 'phone', headerName: 'Phone Number:', width: 150 },
     {
       field: 'delete',
       headerName: 'Delete',
       sortable: false,
       filterable: false,
-      width: 120,
+      width: 100,
       renderCell: (params) => (
-        <button
+        <Button
           onClick={(event) => {
             event.stopPropagation();
             deleteSupplier(params.row._id);
+            
           }}
-        >
-          Delete
-        </button>
+          color="error"
+        ><DeleteForeverIcon></DeleteForeverIcon>
+        </Button>
       ),
     },
     {
@@ -95,18 +96,19 @@ export default function Home({ supplier }) {
       headerName: 'Update',
       sortable: false,
       filterable: false,
-      width: 120,
+      width: 100,
       renderCell: (params) => (
-        <button
+        <Button
           onClick={(event) => {
             event.stopPropagation();
             setSelectedRow(params.row);
             setCurrentSupplier(params.row);
           }}
+          color="success"
           data-bs-toggle='modal' data-bs-target='#updateModal'
         >
-          Update
-        </button>
+          <UpdateIcon></UpdateIcon>
+        </Button>
       ),
     },
 
@@ -164,7 +166,7 @@ export default function Home({ supplier }) {
         </div> */}
 
         <div className="container">
-          <h1 style={{marginTop:"70px"}}>Supplier</h1>
+          <h1 style={{ marginTop: "70px" }}>Supplier</h1>
 
           <DataGrid
             rows={sortedSuppliers}
