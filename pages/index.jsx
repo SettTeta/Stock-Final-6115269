@@ -37,7 +37,7 @@ export default function Home({ supplier }) {
       },
       body: JSON.stringify(data),
     });
-  
+
     const result = await response.json();
     if (result.error) {
       alert('Error: ' + result.error);
@@ -119,7 +119,7 @@ export default function Home({ supplier }) {
 
         <Header />
 
-        <div className="container">
+        {/* <div className="container">
           <h1 >Supplier</h1>
           <table>
             <thead>
@@ -157,14 +157,16 @@ export default function Home({ supplier }) {
               }
             </tbody>
           </table>
-        </div>
+        </div> */}
 
         <div className="container">
+          <h1 style={{marginTop:"70px"}}>Supplier</h1>
+
           <DataGrid
             rows={sortedSuppliers}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
             getRowId={(row) => row._id}
             autoHeight
             onRowClick={(params) => {
@@ -186,29 +188,29 @@ export default function Home({ supplier }) {
                 <div className="container-fluid">
                   <form onSubmit={handleSubmit(updateSupplier)}>
                     <div className="row d-flex justify-content-start">
-                      <div className='col-md-7 '>
+                      <div className='col-md-12 '>
                         <label htmlFor='title' className='col-form-label'>
                           Name:
                         </label>
                         <input
                           className='form-control'
                           id='title'
-                          defaultValue={editedSupplier?.name || ''}
+                          defaultValue={editedSupplier?.name}
                           {...register('name', { required: false })}
                         />
                       </div>
-                      <div className='col-md-5'>
+                      <div className='col-md-12'>
                         <label htmlFor='link' className='col-form-label'>
                           Address:
                         </label>
                         <input
                           className='form-control'
                           id='address'
-                          defaultValue={editedSupplier?.address || ''}
+                          defaultValue={editedSupplier?.address}
                           {...register('address', { required: false })}
                         ></input>
                       </div>
-                      <div className='col-md-4'>
+                      <div className='col-md-12'>
                         <label htmlFor='dateOfUpload' className='col-form-label'>
                           Phone Number:
                         </label>
@@ -216,7 +218,7 @@ export default function Home({ supplier }) {
                           className='form-control'
                           type='phone'
                           id='phone'
-                          defaultValue={editedSupplier?.phone || ''}
+                          defaultValue={editedSupplier?.phone}
                           {...register('phone', { required: false })}
                         />
                       </div>
