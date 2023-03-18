@@ -6,7 +6,7 @@ export default function AddSup() {
     const [data, setData] = useState("");
 
     const saveSupplier = async (data) => {
-        const response = await fetch('/api/stock-final/supplier', {
+        const response = await fetch('https://stock-final-6115269.vercel.app/api/stock-final/supplier', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -37,8 +37,7 @@ export default function AddSup() {
 
                 <label htmlFor="phone">Phone Number</label><br />
                 <textarea id="phone" {...register("phone")} placeholder="09047929" /><br />
-                <input type="submit" />
-                <p>{data}</p><br />
+                <button type="submit">Save</button>
             </form>
         </div>
     );
