@@ -1,18 +1,22 @@
 import Head from 'next/head'
 import Header from '../components/header'
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { DataGrid } from '@mui/x-data-grid';
 
 export default function Home({ supplier }) {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [editedSupplier, setEditedSupplier] = useState(null);
   const [sortedSuppliers, setSortedSuppliers] = useState(supplier);
   const [sorted, setSorted] = useState(false);
 
   const [selectedRow, setSelectedRow] = useState(null);
+
+  useEffect(() => {
+    reset(supplier)
+  }, [])
 
   function deleteSupplier(id) {
     const confirmed = window.confirm("Are you sure you want to delete this supplier?");
