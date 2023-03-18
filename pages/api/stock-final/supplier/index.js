@@ -27,9 +27,7 @@ const supplierSchema = new Schema(
         name: String,
         address: String,
         phone: String,
-    },
-    { strict: false }
-);
+    });
 
 console.log("Mongoose Models", models)
 const Supplier = models?.supplier || model('supplier', supplierSchema);
