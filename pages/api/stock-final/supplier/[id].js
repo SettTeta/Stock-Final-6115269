@@ -30,14 +30,9 @@ export default async function handler(req, res) {
 
 
 const supplierSchema = new Schema({
-    title: String,
-    link: String,
-    desc: String,
-    type: String,
-    duration: String,
-    thumbnail: String,
-    location: String,
-    dateOfUpload: String,
+    name: String,
+    address: String,
+    phone: String,
 });
 
 console.log("Mongoose Models", models)

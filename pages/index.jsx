@@ -9,6 +9,7 @@ export default function Home({ supplier }) {
       </Head>
       <main>
 
+<h1>Supplier</h1>
         <table>
           <thead>
             <tr>
