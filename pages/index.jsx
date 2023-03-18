@@ -5,17 +5,17 @@ import Header from '../components/header'
 export default function Home({ supplier }) {
 
   function deleteSupplier(id) {
-    fetch(`/api/stock-final/supplier/${id}`,
-      {
-        method: 'DELETE'
-      })
-      .then(res => res.json())
-      .then(data => {
-        // alert("Deleting " + id)
-        window.location.reload(false);
-      })
-
-  }
+    const confirmed = window.confirm("Are you sure you want to delete this supplier?");
+    if (confirmed) {
+        fetch(`/api/stock-final/supplier/${id}`, {
+            method: "DELETE"
+        })
+            .then(res => res.json())
+            .then(data => {
+                window.location.reload(false);
+            })
+    }
+}
 
   return (
     <>
@@ -52,9 +52,9 @@ export default function Home({ supplier }) {
                       <td>
                         {sup.phone}
                       </td>
-                      {/* <td>
-                        <button onClick={deleteSupplier(sup._id)}>Delete</button>
-                      </td> */}
+                      <td>
+                        <button onClick={() => deleteSupplier(sup._id)}>Delete</button>
+                      </td>
                     </tr>
                   )
                 })
