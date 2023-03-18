@@ -32,4 +32,4 @@ const supplierSchema = new Schema(
 );
 
 console.log("Mongoose Models", models)
-const Supplier = models?.supplier || model('sup', supplierSchema);
+const Supplier = models?.supplier || model('supplier', supplierSchema);
