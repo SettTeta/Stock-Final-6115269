@@ -38,11 +38,11 @@ export default function Home({ supplier }) {
     if (result.error) {
       alert('Error: ' + result.error);
     } else {
-      setData(JSON.stringify(data));
       setEditedSupplier(null);
-      window.location.reload(true);
+      window.location.reload(false);
     }
   };
+  
   
 
   function setCurrentSupplier(supplier) {
